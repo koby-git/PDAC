@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">PDAC</string>
+    <string name="title_activity_maps">Polygon Map</string>
+    <string name="fine_location_required">Fine location access is required to display the map.</string>
+    <string name="ok">ok</string>
+    <string name="camera_permission_not_available">Permission is not available. Requesting fine location permission.</string>
+    <string name="fine_permission_granted">Fine location permission was granted. Starting preview.</string>
+    <string name="fine_location_permission_denied">Fine location permission request was denied.</string>
+</resources>
