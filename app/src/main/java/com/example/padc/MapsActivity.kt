@@ -55,7 +55,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.setOnMapClickListener { pressedPoint ->
             cleanMap()
 
-            mapsViewModel.checkingEdges(pressedPoint)
+
             //Check if point is inside the Polygon else check distance
             mapsViewModel.totalMinPoint = null
             if (mapsViewModel.pointInPolygon(pressedPoint)) {
@@ -64,7 +64,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 Toast.makeText(this, "Point is inside area", Toast.LENGTH_SHORT).show()
             } else {
 
-                mapsViewModel.checkMinPoint(pressedPoint)
+
+                mapsViewModel.checkAllSideMinDistance(pressedPoint)
 
                 mapsViewModel.pressedMarker = mMap.addMarker(MarkerOptions().position(pressedPoint)
                         .icon(BitmapDescriptorFactory.defaultMarker(HUE_RED)))

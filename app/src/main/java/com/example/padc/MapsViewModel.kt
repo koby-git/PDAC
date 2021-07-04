@@ -20,8 +20,9 @@ class MapsViewModel :ViewModel(){
     private var minPoint: LatLng? = null
 
     /*
-        Point in polygon if the point intersect with the polygon side odd time in one of the
+        Point in polygon if the point intersect with the polygon side an odd time in one of the
         direction(,up,down,right,left)
+
         We need to check only one side
     */
     fun pointInPolygon(point: LatLng): Boolean {
@@ -56,8 +57,8 @@ class MapsViewModel :ViewModel(){
 
        Checking all side of the polygon and run recursive function to get minimum distance
        between polygon pressed point
-       The recursive function get the middle of the side and continue the middle point and her distance
-       then we continue checking for middle point until the precision that we want is over.
+       The recursive function get the middle of the side and
+       we continue checking for middle point until the precision that we want is over.
    */
     private fun checkMinPrecision(pointA: LatLng, pointB: LatLng, pressedPoint: LatLng, precision: Int): LatLng? {
         val distanceToPointA = SphericalUtil.computeDistanceBetween(pressedPoint, pointA)
@@ -80,7 +81,8 @@ class MapsViewModel :ViewModel(){
 
     }
 
-    fun checkingEdges(pressedPoint: LatLng){
+    fun checkAllSideMinDistance(pressedPoint: LatLng){
+        //Run on Background thread
         viewModelScope.launch(Dispatchers.IO) {
             for (i in 0..latLangArray.size - 2) {
 
@@ -111,31 +113,5 @@ class MapsViewModel :ViewModel(){
         }
      }
 
-    fun checkMinPoint(pressedPoint: LatLng) {
-            viewModelScope.launch(Dispatchers.IO) {
-            for (i in 0..latLangArray.size - 2) {
-
-
-                minPoint = checkMinPrecision(
-                    latLangArray[i],
-                    latLangArray[i + 1],
-                    pressedPoint,
-                    30
-                )
-
-                /*Compare and check for the minimum distance between all polygon sides*/
-                if (totalMinPoint == null) {
-                    totalMinPoint = minPoint
-                } else {
-                    val minDistance = SphericalUtil.computeDistanceBetween(minPoint, pressedPoint)
-                    val totalMinDistance =
-                        SphericalUtil.computeDistanceBetween(totalMinPoint, pressedPoint)
-                    if (minDistance < totalMinDistance) {
-                        totalMinPoint = minPoint
-                    }
-                }
-            }
-        }
-    }
 
 }
